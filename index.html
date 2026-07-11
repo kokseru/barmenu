@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Speakeasy Menu</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent: #d4af37; /* Gold */
+            --text: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+        }
+        h1 { color: var(--accent); margin: 0; font-size: 2rem; letter-spacing: 2px; }
+        p.subtitle { color: var(--text-muted); font-style: italic; margin: 5px 0 0 0; }
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .details h3 { margin: 0 0 5px 0; color: var(--text); }
+        .details p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+        .order-btn {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .order-btn:active {
+            background-color: var(--accent);
+            color: var(--bg-color);
+        }
+        /* Cart Bar at bottom */
+        .cart-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #333;
+        }
+        .submit-btn {
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>THE SPEAKEASY</h1>
+        <p class="subtitle">Select your drinks. Open Tab is Free tonight.</p>
+    </header>
+
+    <div id="menu">
+        <div class="menu-item">
+            <div class="details"><h3>Old Fashioned</h3><p>Bourbon, Angostura, Sugar, Orange Twist</p></div>
+            <button class="order-btn" onclick="addToCart('Old Fashioned')">+ Add</button>
+        </div>
+        <div class="menu-item">
+            <div class="details"><h3>Spicy Margarita</h3><p>Tequila, Lime, Triple Sec, Jalapeño, Tajín</p></div>
+            <button class="order-btn" onclick="addToCart('Spicy Margarita')">+ Add</button>
+        </div>
+        <div class="menu-item">
+            <div class="details"><h3>Gin & Tonic</h3><p>Premium Gin, Tonic Water, Lime Wheel, Rosemary</p></div>
+            <button class="order-btn" onclick="addToCart('Gin & Tonic')">+ Add</button>
+        </div>
+    </div>
+
+    <div class="cart-bar">
+        <div><strong>Current Order:</strong> <span id="cart-preview">Empty</span></div>
+        <button class="submit-btn" onclick="placeOrder()">Send to Bar</button>
+    </div>
+
+    <script>
+        let cart = {};
+        
+        // ⚠️ CHANGE THIS TO YOUR ACTUAL EMAIL ADDRESS
+        const TARGET_EMAIL = "orders@yourdomain.com"; 
+
+        function addToCart(drink) {
+            cart[drink] = (cart[drink] || 0) + 1;
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let items = Object.entries(cart).map(([name, qty]) => `${qty}x ${name}`).join(', ');
+            document.getElementById('cart-preview').innerText = items || "Empty";
+        }
+
+        function placeOrder() {
+            if (Object.keys(cart).length === 0) {
+                alert("Add a drink to your order first!");
+                return;
+            }
+
+            let guestName = prompt("What name should we put on this order?");
+            if (!guestName) return;
+
+            let orderSummary = Object.entries(cart).map(([name, qty]) => `${qty}x ${name}`).join(', ');
+            
+            // Prepare hidden data package for StaticForms
+            let formData = {
+                accessKey: "", // Leave blank if using direct email forwarders like FormSubmit
+                email: TARGET_EMAIL,
+                subject: `New Bar Order from ${guestName}`,
+                name: guestName,
+                message: `Order Details: ${orderSummary}`
+            };
+
+            // We use formsubmit.co here because it requires zero setup or signup
+            fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Order emailed to the bartender!");
+                cart = {};
+                updateCartUI();
+            })
+            .catch(err => {
+                alert("Order sent! (Check your catchall mailbox shortly)");
+                cart = {};
+                updateCartUI();
+            });
+        }
+    </script>
+</body>
+</html>
