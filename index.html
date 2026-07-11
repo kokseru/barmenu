@@ -3,43 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Speakeasy Menu</title>
+    <title>The Home Bar Menu</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
+            --bg-color: #0f0f12;
+            --card-bg: #1c1c24;
             --accent: #d4af37; /* Gold */
             --text: #ffffff;
-            --text-muted: #aaaaaa;
+            --text-muted: #8e8e93;
+            --border: #2c2c35;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text);
             margin: 0;
-            padding: 20px;
-            padding-bottom: 100px;
+            padding: 15px;
+            padding-bottom: 120px;
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--accent);
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
             padding-bottom: 15px;
         }
-        h1 { color: var(--accent); margin: 0; font-size: 2rem; letter-spacing: 2px; }
-        p.subtitle { color: var(--text-muted); font-style: italic; margin: 5px 0 0 0; }
+        h1 { color: var(--accent); margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        p.subtitle { color: var(--text-muted); font-style: italic; margin: 5px 0 0 0; font-size: 0.9rem; }
+        
+        .category-title {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin: 25px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--accent);
+            padding-left: 8px;
+        }
         .menu-item {
             background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .item-main {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .details h3 { margin: 0 0 5px 0; color: var(--text); }
-        .details p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+        .details h3 { margin: 0 0 4px 0; color: var(--text); font-size: 1.1rem; }
+        .details p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+        
+        .options-select {
+            background: #2c2c35;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            width: 100%;
+            margin-top: 5px;
+        }
         .order-btn {
             background-color: transparent;
             border: 2px solid var(--accent);
@@ -48,22 +76,32 @@
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s;
+            white-space: nowrap;
         }
         .order-btn:active {
             background-color: var(--accent);
             color: var(--bg-color);
         }
-        /* Cart Bar at bottom */
+        /* Cart Bar */
         .cart-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: #000;
+            background: #000000;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #333;
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+        }
+        #cart-preview {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
         }
         .submit-btn {
             background-color: var(--accent);
@@ -72,46 +110,137 @@
             padding: 12px 24px;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>THE SPEAKEASY</h1>
-        <p class="subtitle">Select your drinks. Open Tab is Free tonight.</p>
+        <h1>The Lounge</h1>
+        <p class="subtitle">Scan, Order, and Let Us Mix It Up</p>
     </header>
 
-    <div id="menu">
+    <div id="menu-container">
+        <!-- ALCOHOL FREE -->
+        <div class="category-title">Alcohol-Free Drinks</div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Coca-Cola</h3><p>Classic refreshing soda</p></div><button class="order-btn" onclick="addToCart('Coca-Cola')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Fanta</h3><p>Fruity orange taste</p></div><button class="order-btn" onclick="addToCart('Fanta')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Sprite</h3><p>Crisp lemon-lime flavor</p></div><button class="order-btn" onclick="addToCart('Sprite')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Energy Drink</h3><p>For an extra boost</p></div><button class="order-btn" onclick="addToCart('Energy Drink')">+ Add</button></div></div>
+
+        <!-- LONGDRINKS -->
+        <div class="category-title">Longdrinks</div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Mojito</h3><p>Rum, Lime, Fresh Mint, White Sugar, Soda</p></div><button class="order-btn" onclick="addToCart('Mojito')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Moscow Mule</h3><p>Vodka, Ginger Beer, Fresh Lime Juice, Cucumber</p></div><button class="order-btn" onclick="addToCart('Moscow Mule')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Sex on the Beach</h3><p>Vodka, Peach Schnapps, Cranberry & Orange Juice</p></div><button class="order-btn" onclick="addToCart('Sex on the Beach')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Caipirinha</h3><p>Cachaça, Fresh Lime, Cane Sugar, Crushed Ice</p></div><button class="order-btn" onclick="addToCart('Caipirinha')">+ Add</button></div></div>
+
+        <!-- SHOTS -->
+        <div class="category-title">Shots</div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Lemon Drop</h3><p>Vodka, Lemon Juice, Sugar Rim</p></div><button class="order-btn" onclick="addToCart('Lemon Drop Shot')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Vodka Shot</h3><p>Straight ice-cold shot</p></div><button class="order-btn" onclick="addToCart('Vodka Shot')">+ Add</button></div></div>
+
+        <!-- WHISKEY -->
+        <div class="category-title">Whiskey</div>
+        <!-- Helper function handles options for spirits -->
         <div class="menu-item">
-            <div class="details"><h3>Old Fashioned</h3><p>Bourbon, Angostura, Sugar, Orange Twist</p></div>
-            <button class="order-btn" onclick="addToCart('Old Fashioned')">+ Add</button>
+            <div class="item-main"><div class="details"><h3>Chivas Regal</h3><p>Premium Blended Scotch</p></div><button class="order-btn" onclick="addSpirit('Chivas Regal', 'chivas-opt')">+ Add</button></div>
+            <select id="chivas-opt" class="options-select"><option value="On the Rocks">On the Rocks</option><option value="Neat">Neat</option><option value="with Cola">with Cola</option><option value="with Ginger Ale">with Ginger Ale</option></select>
         </div>
         <div class="menu-item">
-            <div class="details"><h3>Spicy Margarita</h3><p>Tequila, Lime, Triple Sec, Jalapeño, Tajín</p></div>
-            <button class="order-btn" onclick="addToCart('Spicy Margarita')">+ Add</button>
+            <div class="item-main"><div class="details"><h3>Jack Daniel's</h3><p>Tennessee Whiskey</p></div><button class="order-btn" onclick="addSpirit('Jack Daniel\'s', 'jack-opt')">+ Add</button></div>
+            <select id="jack-opt" class="options-select"><option value="with Cola">with Cola</option><option value="On the Rocks">On the Rocks</option><option value="Neat">Neat</option></select>
         </div>
         <div class="menu-item">
-            <div class="details"><h3>Gin & Tonic</h3><p>Premium Gin, Tonic Water, Lime Wheel, Rosemary</p></div>
-            <button class="order-btn" onclick="addToCart('Gin & Tonic')">+ Add</button>
+            <div class="item-main"><div class="details"><h3>Monkey Shoulder</h3><p>Smooth Blended Malt Scotch</p></div><button class="order-btn" onclick="addSpirit('Monkey Shoulder', 'monkey-opt')">+ Add</button></div>
+            <select id="monkey-opt" class="options-select"><option value="On the Rocks">On the Rocks</option><option value="Neat">Neat</option><option value="with Ginger Ale">with Ginger Ale</option></select>
         </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Ballantine's</h3><p>Classic Blended Scotch</p></div><button class="order-btn" onclick="addSpirit('Ballantine\'s', 'bal-opt')">+ Add</button></div>
+            <select id="bal-opt" class="options-select"><option value="with Cola">with Cola</option><option value="On the Rocks">On the Rocks</option><option value="Neat">Neat</option></select>
+        </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Glenfiddich</h3><p>Single Malt Scotch Whisky</p></div><button class="order-btn" onclick="addSpirit('Glenfiddich', 'glen-opt')">+ Add</button></div>
+            <select id="glen-opt" class="options-select"><option value="Neat">Neat</option><option value="On the Rocks">On the Rocks</option></select>
+        </div>
+
+        <!-- VODKA -->
+        <div class="category-title">Vodka</div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Absolut Vodka</h3><p>Swedish Vodka</p></div><button class="order-btn" onclick="addSpirit('Absolut Vodka', 'abs-opt')">+ Add</button></div>
+            <select id="abs-opt" class="options-select"><option value="with Energy">with Energy</option><option value="with Lemon/Sprite">with Lemon/Sprite</option><option value="with Orange Juice">with Orange Juice</option><option value="On the Rocks">On the Rocks</option></select>
+        </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Smirnoff</h3><p>Classic Vodka</p></div><button class="order-btn" onclick="addSpirit('Smirnoff', 'smir-opt')">+ Add</button></div>
+            <select id="smir-opt" class="options-select"><option value="with Lemon/Sprite">with Lemon/Sprite</option><option value="with Energy">with Energy</option><option value="with Orange Juice">with Orange Juice</option></select>
+        </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Grey Goose</h3><p>Premium French Vodka</p></div><button class="order-btn" onclick="addSpirit('Grey Goose', 'goose-opt')">+ Add</button></div>
+            <select id="goose-opt" class="options-select"><option value="On the Rocks">On the Rocks</option><option value="with Tonic">with Tonic</option><option value="Neat">Neat</option></select>
+        </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Belvedere</h3><p>Super Premium Polish Rye Vodka</p></div><button class="order-btn" onclick="addSpirit('Belvedere', 'belv-opt')">+ Add</button></div>
+            <select id="belv-opt" class="options-select"><option value="On the Rocks">On the Rocks</option><option value="Neat">Neat</option></select>
+        </div>
+
+        <!-- GIN -->
+        <div class="category-title">Gin</div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Hendrick's Gin</h3><p>With Cucumber Essence</p></div><button class="order-btn" onclick="addSpirit('Hendrick\'s Gin', 'hen-opt')">+ Add</button></div>
+            <select id="hen-opt" class="options-select"><option value="with Tonic & Cucumber">with Tonic & Cucumber</option><option value="On the Rocks">On the Rocks</option></select>
+        </div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>Bombay Sapphire</h3><p>Vibrant Botanical London Dry</p></div><button class="order-btn" onclick="addSpirit('Bombay Sapphire', 'bomb-opt')">+ Add</button></div>
+            <select id="bomb-opt" class="options-select"><option value="with Tonic & Lime">with Tonic & Lime</option><option value="with Sprite">with Sprite</option></select>
+        </div>
+
+        <!-- BEER -->
+        <div class="category-title">Beer</div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>House Special</h3><p>Cold Draft / Cold Bottle Beer</p></div><button class="order-btn" onclick="addToCart('House Special Beer')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Stiegl Radler</h3><p>Refreshing Lemon / Grapefruit Shandy</p></div><button class="order-btn" onclick="addToCart('Stiegl Radler')">+ Add</button></div></div>
+
+        <!-- WINE -->
+        <div class="category-title">Wine</div>
+        <div class="menu-item">
+            <div class="item-main"><div class="details"><h3>House Wine</h3><p>Select Red or White</p></div><button class="order-btn" onclick="addSpirit('House Wine', 'wine-opt')">+ Add</button></div>
+            <select id="wine-opt" class="options-select"><option value="White Wine (Chilled)">White Wine (Chilled)</option><option value="Red Wine">Red Wine</option><option value="Wine Spritzer (with Soda)">Wine Spritzer (with Soda)</option></select>
+        </div>
+
+        <!-- COFFEE -->
+        <div class="category-title">Coffee</div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Cappuccino</h3><p>Espresso with steamed milk foam</p></div><button class="order-btn" onclick="addToCart('Cappuccino')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Latte Macchiato</h3><p>Layered espresso and hot milk</p></div><button class="order-btn" onclick="addToCart('Latte Macchiato')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Café Latte</h3><p>Smooth espresso with lots of steamed milk</p></div><button class="order-btn" onclick="addToCart('Café Latte')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Espresso</h3><p>Strong, intense single shot</p></div><button class="order-btn" onclick="addToCart('Espresso')">+ Add</button></div></div>
+        <div class="menu-item"><div class="item-main"><div class="details"><h3>Iced Latte Macchiato</h3><p>Chilled espresso over cold milk and ice</p></div><button class="order-btn" onclick="addToCart('Iced Latte Macchiato')">+ Add</button></div></div>
     </div>
 
+    <!-- Bottom Sticky Cart -->
     <div class="cart-bar">
-        <div><strong>Current Order:</strong> <span id="cart-preview">Empty</span></div>
-        <button class="submit-btn" onclick="placeOrder()">Send to Bar</button>
+        <div>
+            <strong>Your Order:</strong>
+            <span id="cart-preview">Empty</span>
+        </div>
+        <button class="submit-btn" onclick="placeOrder()">Place Order</button>
     </div>
 
     <script>
         let cart = {};
         
-        // ⚠️ CHANGE THIS TO YOUR ACTUAL EMAIL ADDRESS
+        // ⚠️ REMEMBER TO SET THIS TO YOUR EMAIL ADDRESS
         const TARGET_EMAIL = "orders@yourdomain.com"; 
 
-        function addToCart(drink) {
-            cart[drink] = (cart[drink] || 0) + 1;
+        function addToCart(itemName) {
+            cart[itemName] = (cart[itemName] || 0) + 1;
             updateCartUI();
+        }
+
+        function addSpirit(brand, selectId) {
+            let preference = document.getElementById(selectId).value;
+            let fullName = `${brand} (${preference})`;
+            addToCart(fullName);
         }
 
         function updateCartUI() {
@@ -121,25 +250,22 @@
 
         function placeOrder() {
             if (Object.keys(cart).length === 0) {
-                alert("Add a drink to your order first!");
+                alert("Add something to your order first!");
                 return;
             }
 
-            let guestName = prompt("What name should we put on this order?");
+            let guestName = prompt("What is your name?");
             if (!guestName) return;
 
             let orderSummary = Object.entries(cart).map(([name, qty]) => `${qty}x ${name}`).join(', ');
             
-            // Prepare hidden data package for StaticForms
             let formData = {
-                accessKey: "", // Leave blank if using direct email forwarders like FormSubmit
                 email: TARGET_EMAIL,
-                subject: `New Bar Order from ${guestName}`,
+                subject: `🍺 BAR ORDER: ${guestName.toUpperCase()}`,
                 name: guestName,
-                message: `Order Details: ${orderSummary}`
+                message: `Order Content: ${orderSummary}`
             };
 
-            // We use formsubmit.co here because it requires zero setup or signup
             fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
                 method: "POST",
                 headers: { 
@@ -148,14 +274,13 @@
                 },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.json())
-            .then(data => {
-                alert("Order emailed to the bartender!");
+            .then(() => {
+                alert("Order placed! The bartender is on it.");
                 cart = {};
                 updateCartUI();
             })
-            .catch(err => {
-                alert("Order sent! (Check your catchall mailbox shortly)");
+            .catch(() => {
+                alert("Order placed! (Check your catchall mailbox)");
                 cart = {};
                 updateCartUI();
             });
