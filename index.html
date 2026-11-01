@@ -6,23 +6,27 @@
     <title>The Home Bar Menu</title>
     <style>
         :root {
-            --bg-color: #0b0b0e;
-            --card-bg: #16161c;
-            --card-hover: #1f1f29;
-            --accent: #d4af37; /* Warm Gold */
-            --accent-hover: #e6c555;
+            --bg-color: #070709;
+            --card-bg: #131318;
+            --card-hover: #1a1a24;
+            --accent: #e5c158; /* Premium Gold */
+            --accent-hover: #f3d472;
             --text: #ffffff;
-            --text-muted: #9a9ab0;
-            --border: #262632;
-            --border-hover: rgba(212, 175, 55, 0.5);
+            --text-muted: #9e9eb5;
+            --border: #22222f;
+            --border-hover: rgba(229, 193, 88, 0.4);
+            --danger: #ff5555;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(229, 193, 88, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(88, 120, 229, 0.03) 0%, transparent 40%);
             color: var(--text);
             margin: 0;
-            padding: 20px 15px 150px 15px;
+            padding: 20px 15px 160px 15px;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -36,11 +40,11 @@
         h1 {
             color: var(--accent);
             margin: 0;
-            font-size: 2.3rem;
-            letter-spacing: 3px;
+            font-size: 2.4rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
             font-weight: 700;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            text-shadow: 0 0 25px rgba(229, 193, 88, 0.25);
         }
 
         p.subtitle {
@@ -53,33 +57,34 @@
 
         .category-title {
             color: var(--accent);
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             margin: 40px 0 15px 0;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-left: 4px solid var(--accent);
+            border-left: 3px solid var(--accent);
             padding-left: 12px;
             font-weight: 600;
+            text-shadow: 0 0 10px rgba(229, 193, 88, 0.1);
         }
 
         .menu-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 16px;
             margin-bottom: 16px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .menu-item:hover {
             background: var(--card-hover);
             border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 20px rgba(229, 193, 88, 0.08);
         }
 
         .item-row {
@@ -89,17 +94,17 @@
         }
 
         .item-img {
-            width: 70px;
-            height: 70px;
-            border-radius: 12px;
+            width: 75px;
+            height: 75px;
+            border-radius: 14px;
             object-fit: cover;
             border: 1px solid var(--border);
             flex-shrink: 0;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .menu-item:hover .item-img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .item-main {
@@ -127,15 +132,15 @@
         .item-options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             border-top: 1px solid var(--border);
-            padding-top: 10px;
+            padding-top: 12px;
         }
 
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.9rem;
             color: var(--text);
             cursor: pointer;
@@ -143,17 +148,17 @@
 
         .checkbox-label input {
             accent-color: var(--accent);
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
         }
 
         .options-select {
-            background: #23232e;
+            background: #1a1a24;
             color: #ffffff;
             border: 1px solid var(--border);
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
             font-size: 0.9rem;
             width: 100%;
             outline: none;
@@ -181,11 +186,11 @@
         .order-btn:hover {
             background-color: var(--accent);
             color: var(--bg-color);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 15px rgba(229, 193, 88, 0.4);
         }
 
         .order-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.92);
         }
 
         /* Fixed Cart Bar (Glassmorphism) */
@@ -194,35 +199,39 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(11, 11, 14, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 16px 20px;
+            background: rgba(10, 10, 13, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.8);
             z-index: 1000;
         }
 
         .cart-info {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
+            cursor: pointer;
         }
 
         .cart-info strong {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         #cart-preview {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--accent);
-            max-width: 200px;
+            max-width: 180px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -232,26 +241,183 @@
 
         .submit-btn {
             background-color: var(--accent);
-            color: #000000;
+            color: #070709;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 20px rgba(229, 193, 88, 0.35);
             transition: all 0.2s ease;
         }
 
         .submit-btn:hover {
             background-color: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 6px 25px rgba(229, 193, 88, 0.5);
         }
 
         .submit-btn:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
+        }
+
+        /* Cart Review Modal Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--accent);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .cart-edit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a24;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .cart-edit-item span {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .name-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .name-input-group label {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .guest-input {
+            background: #1a1a24;
+            color: #ffffff;
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .guest-input:focus {
+            border-color: var(--accent);
+        }
+
+        .confirm-order-btn {
+            background-color: var(--accent);
+            color: #070709;
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(229, 193, 88, 0.35);
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .confirm-order-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .clear-all-btn {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+            text-align: center;
+            transition: all 0.2s;
         }
 
         @media (min-width: 600px) {
@@ -342,13 +508,13 @@
             </div>
             <div class="item-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="cap-syrup"> Mit Karamell-Sirup
+                    <input type="checkbox" id="cap-syrup"> With Caramel Syrup
                 </label>
                 <select id="cap-sugar" class="options-select">
-                    <option value="Kein Zucker">Kein Zucker</option>
-                    <option value="1x Zucker">1x Zucker</option>
-                    <option value="2x Zucker">2x Zucker</option>
-                    <option value="Viel Zucker">Viel Zucker</option>
+                    <option value="No Sugar">No Sugar</option>
+                    <option value="1x Sugar">1x Sugar</option>
+                    <option value="2x Sugar">2x Sugar</option>
+                    <option value="Extra Sugar">Extra Sugar</option>
                 </select>
             </div>
         </div>
@@ -367,13 +533,13 @@
             </div>
             <div class="item-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="latte-syrup"> Mit Karamell-Sirup
+                    <input type="checkbox" id="latte-syrup"> With Caramel Syrup
                 </label>
                 <select id="latte-sugar" class="options-select">
-                    <option value="Kein Zucker">Kein Zucker</option>
-                    <option value="1x Zucker">1x Zucker</option>
-                    <option value="2x Zucker">2x Zucker</option>
-                    <option value="Viel Zucker">Viel Zucker</option>
+                    <option value="No Sugar">No Sugar</option>
+                    <option value="1x Sugar">1x Sugar</option>
+                    <option value="2x Sugar">2x Sugar</option>
+                    <option value="Extra Sugar">Extra Sugar</option>
                 </select>
             </div>
         </div>
@@ -392,13 +558,13 @@
             </div>
             <div class="item-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="cafelatte-syrup"> Mit Karamell-Sirup
+                    <input type="checkbox" id="cafelatte-syrup"> With Caramel Syrup
                 </label>
                 <select id="cafelatte-sugar" class="options-select">
-                    <option value="Kein Zucker">Kein Zucker</option>
-                    <option value="1x Zucker">1x Zucker</option>
-                    <option value="2x Zucker">2x Zucker</option>
-                    <option value="Viel Zucker">Viel Zucker</option>
+                    <option value="No Sugar">No Sugar</option>
+                    <option value="1x Sugar">1x Sugar</option>
+                    <option value="2x Sugar">2x Sugar</option>
+                    <option value="Extra Sugar">Extra Sugar</option>
                 </select>
             </div>
         </div>
@@ -417,13 +583,13 @@
             </div>
             <div class="item-options">
                 <label class="checkbox-label">
-                    <input type="checkbox" id="flat-syrup"> Mit Karamell-Sirup
+                    <input type="checkbox" id="flat-syrup"> With Caramel Syrup
                 </label>
                 <select id="flat-sugar" class="options-select">
-                    <option value="Kein Zucker">Kein Zucker</option>
-                    <option value="1x Zucker">1x Zucker</option>
-                    <option value="2x Zucker">2x Zucker</option>
-                    <option value="Viel Zucker">Viel Zucker</option>
+                    <option value="No Sugar">No Sugar</option>
+                    <option value="1x Sugar">1x Sugar</option>
+                    <option value="2x Sugar">2x Sugar</option>
+                    <option value="Extra Sugar">Extra Sugar</option>
                 </select>
             </div>
         </div>
@@ -442,10 +608,10 @@
             </div>
             <div class="item-options">
                 <select id="esp-sugar" class="options-select">
-                    <option value="Kein Zucker">Kein Zucker</option>
-                    <option value="1x Zucker">1x Zucker</option>
-                    <option value="2x Zucker">2x Zucker</option>
-                    <option value="Viel Zucker">Viel Zucker</option>
+                    <option value="No Sugar">No Sugar</option>
+                    <option value="1x Sugar">1x Sugar</option>
+                    <option value="2x Sugar">2x Sugar</option>
+                    <option value="Extra Sugar">Extra Sugar</option>
                 </select>
             </div>
         </div>
@@ -453,11 +619,24 @@
 
     <!-- Bottom Sticky Cart -->
     <div class="cart-bar">
-        <div class="cart-info">
-            <strong>Your Order:</strong>
+        <div class="cart-info" onclick="openCartModal()">
+            <strong>Your Order ✏️</strong>
             <span id="cart-preview">Empty</span>
         </div>
-        <button class="submit-btn" onclick="placeOrder()">Place Order</button>
+        <button class="submit-btn" onclick="openCartModal()">Place Order</button>
+    </div>
+
+    <!-- Review & Confirm Order Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Review Your Order</h2>
+                <button class="close-btn" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalCartList">
+                <!-- Cart items & name input rendered dynamically -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -471,13 +650,30 @@
             updateCartUI();
         }
 
+        function removeFromCart(itemName) {
+            if (cart[itemName]) {
+                cart[itemName]--;
+                if (cart[itemName] <= 0) {
+                    delete cart[itemName];
+                }
+            }
+            updateCartUI();
+            renderModalCart();
+        }
+
+        function clearCart() {
+            cart = {};
+            updateCartUI();
+            closeCartModal();
+        }
+
         function addCoffee(coffeeName, syrupId, sugarId) {
             let hasSyrup = document.getElementById(syrupId).checked;
             let sugarVal = document.getElementById(sugarId).value;
             
             let details = [];
-            if (hasSyrup) details.push("mit Karamell-Sirup");
-            if (sugarVal !== "Kein Zucker") details.push(sugarVal);
+            if (hasSyrup) details.push("with Caramel Syrup");
+            if (sugarVal !== "No Sugar") details.push(sugarVal);
             
             let fullName = coffeeName;
             if (details.length > 0) {
@@ -489,7 +685,7 @@
         function addCoffeeEspresso(coffeeName, sugarId) {
             let sugarVal = document.getElementById(sugarId).value;
             let fullName = coffeeName;
-            if (sugarVal !== "Kein Zucker") {
+            if (sugarVal !== "No Sugar") {
                 fullName += ` (${sugarVal})`;
             }
             addToCart(fullName);
@@ -500,14 +696,58 @@
             document.getElementById('cart-preview').innerText = items || "Empty";
         }
 
-        function placeOrder() {
+        function openCartModal() {
             if (Object.keys(cart).length === 0) {
                 alert("Add something to your order first!");
                 return;
             }
+            renderModalCart();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
 
-            let guestName = prompt("What is your name?");
-            if (!guestName) return;
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function renderModalCart() {
+            let container = document.getElementById('modalCartList');
+            let entries = Object.entries(cart);
+            
+            if (entries.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Cart is empty.</p>';
+                return;
+            }
+
+            let html = entries.map(([name, qty]) => `
+                <div class="cart-edit-item">
+                    <span>${qty}x ${name}</span>
+                    <div class="item-actions">
+                        <button class="qty-btn" onclick="removeFromCart('${name}')">–</button>
+                        <button class="qty-btn" onclick="addToCart('${name}'); renderModalCart();">+</button>
+                    </div>
+                </div>
+            `).join('');
+
+            html += `
+                <div class="name-input-group">
+                    <label for="guestNameInput">Your Name:</label>
+                    <input type="text" id="guestNameInput" class="guest-input" placeholder="Enter your name..." />
+                </div>
+                <button class="confirm-order-btn" onclick="submitOrderFromModal()">Confirm Order</button>
+                <button class="clear-all-btn" onclick="clearCart()">Clear entire cart</button>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function submitOrderFromModal() {
+            let nameInput = document.getElementById('guestNameInput');
+            let guestName = nameInput ? nameInput.value.trim() : "";
+            
+            if (!guestName) {
+                alert("Please enter your name before placing the order!");
+                return;
+            }
 
             let orderSummary = Object.entries(cart).map(([name, qty]) => `${qty}x ${name}`).join(', ');
             
@@ -530,12 +770,14 @@
                 alert("Order placed! The bartender is on it.");
                 cart = {};
                 updateCartUI();
+                closeCartModal();
             })
             .catch(() => {
                 alert("Order placed! (Check your catchall mailbox)");
                 cart = {};
                 updateCartUI();
-            })
+                closeCartModal();
+            });
         }
     </script>
 </body>
