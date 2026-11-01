@@ -8,11 +8,13 @@
         :root {
             --bg-color: #0b0b0e;
             --card-bg: #16161c;
+            --card-hover: #1f1f29;
             --accent: #d4af37; /* Warm Gold */
-            --accent-hover: #b89528;
+            --accent-hover: #e6c555;
             --text: #ffffff;
             --text-muted: #9a9ab0;
             --border: #262632;
+            --border-hover: rgba(212, 175, 55, 0.5);
         }
 
         body {
@@ -20,13 +22,13 @@
             background-color: var(--bg-color);
             color: var(--text);
             margin: 0;
-            padding: 20px 15px 140px 15px;
+            padding: 20px 15px 150px 15px;
             -webkit-font-smoothing: antialiased;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 20px;
         }
@@ -34,10 +36,11 @@
         h1 {
             color: var(--accent);
             margin: 0;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 700;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         p.subtitle {
@@ -50,10 +53,10 @@
 
         .category-title {
             color: var(--accent);
-            font-size: 1.4rem;
-            margin: 35px 0 15px 0;
+            font-size: 1.3rem;
+            margin: 40px 0 15px 0;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             border-left: 4px solid var(--accent);
             padding-left: 12px;
             font-weight: 600;
@@ -62,18 +65,41 @@
         .menu-item {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 15px;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .menu-item:hover {
-            border-color: rgba(212, 175, 55, 0.4);
+            background: var(--card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .item-img {
+            transform: scale(1.05);
         }
 
         .item-main {
@@ -81,109 +107,155 @@
             justify-content: space-between;
             align-items: center;
             gap: 15px;
+            flex-grow: 1;
         }
 
         .details h3 {
-            margin: 0 0 6px 0;
+            margin: 0 0 5px 0;
             color: var(--text);
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 600;
         }
 
         .details p {
             margin: 0;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.4;
+        }
+
+        .item-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
         }
 
         .options-select {
             background: #23232e;
             color: #ffffff;
             border: 1px solid var(--border);
-            padding: 10px 12px;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             width: 100%;
-            margin-top: 4px;
             outline: none;
             cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .options-select:focus {
+            border-color: var(--accent);
         }
 
         .order-btn {
             background-color: transparent;
             border: 2px solid var(--accent);
             color: var(--accent);
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.2s ease;
         }
 
-        .order-btn:active {
+        .order-btn:hover {
             background-color: var(--accent);
             color: var(--bg-color);
-            transform: scale(0.96);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
 
-        /* Fixed Cart Bar */
+        .order-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Fixed Cart Bar (Glassmorphism) */
         .cart-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 15, 18, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 18px 24px;
+            background: rgba(11, 11, 14, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border);
-            box-shadow: 0 -8px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
             z-index: 1000;
         }
 
         .cart-info {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
         .cart-info strong {
-            font-size: 1.05rem;
-            color: var(--text);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #cart-preview {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--accent);
-            max-width: 220px;
+            max-width: 200px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             display: block;
+            font-weight: 500;
         }
 
         .submit-btn {
             background-color: var(--accent);
             color: #000000;
             border: none;
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 30px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
             transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
         .submit-btn:active {
             transform: scale(0.96);
-            background-color: var(--accent-hover);
+        }
+
+        @media (min-width: 600px) {
+            body { max-width: 600px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -199,22 +271,28 @@
         <div class="category-title">Today's Special</div>
 
         <div class="menu-item">
-            <div class="item-main">
-                <div class="details">
-                    <h3>Mojito (Alcohol-Free)</h3>
-                    <p>Refreshing Sprite, fresh mint & lemon</p>
+            <div class="item-row">
+                <img src="https://www.rumundco.de/magazin/wp-content/uploads/2022/08/2-12.png" alt="Mojito" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Mojito (Alcohol-Free)</h3>
+                        <p>Refreshing Sprite, fresh mint & lemon</p>
+                    </div>
+                    <button class="order-btn" onclick="addToCart('Mojito (Alcohol-Free)')">+ Add</button>
                 </div>
-                <button class="order-btn" onclick="addToCart('Mojito (Alcohol-Free)')">+ Add</button>
             </div>
         </div>
 
         <div class="menu-item">
-            <div class="item-main">
-                <div class="details">
-                    <h3>Hugo (Alcohol-Free)</h3>
-                    <p>Elderflower, sparkling soda, mint & lime</p>
+            <div class="item-row">
+                <img src="https://www.foodbanjo.com/wp-content/uploads/2020/04/hugococktail-03new-1200.jpg" alt="Hugo" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Hugo (Alcohol-Free)</h3>
+                        <p>Elderflower, sparkling soda, mint & lime</p>
+                    </div>
+                    <button class="order-btn" onclick="addToCart('Hugo (Alcohol-Free)')">+ Add</button>
                 </div>
-                <button class="order-btn" onclick="addToCart('Hugo (Alcohol-Free)')">+ Add</button>
             </div>
         </div>
 
@@ -222,43 +300,154 @@
         <div class="category-title">Softdrinks</div>
 
         <div class="menu-item">
-            <div class="item-main">
-                <div class="details">
-                    <h3>Coca-Cola</h3>
-                    <p>Classic refreshing soda</p>
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=200&auto=format&fit=crop&q=80" alt="Coca-Cola" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Coca-Cola</h3>
+                        <p>Classic refreshing soda</p>
+                    </div>
+                    <button class="order-btn" onclick="addToCart('Coca-Cola')">+ Add</button>
                 </div>
-                <button class="order-btn" onclick="addToCart('Coca-Cola')">+ Add</button>
             </div>
         </div>
 
         <div class="menu-item">
-            <div class="item-main">
-                <div class="details">
-                    <h3>Energy Drink</h3>
-                    <p>For an extra boost</p>
+            <div class="item-row">
+                <img src="https://assets.brack.ch/static/assets/blt2/2/5/2/4/blt22524d80c65a80f9/redbull-hauptbild_1200x630.jpg" alt="Energy Drink" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Energy Drink</h3>
+                        <p>For an extra boost</p>
+                    </div>
+                    <button class="order-btn" onclick="addToCart('Energy Drink')">+ Add</button>
                 </div>
-                <button class="order-btn" onclick="addToCart('Energy Drink')">+ Add</button>
             </div>
         </div>
 
         <!-- HOT BEVERAGES -->
         <div class="category-title">Hot Beverages</div>
 
+        <!-- Cappuccino -->
         <div class="menu-item">
-            <div class="item-main">
-                <div class="details">
-                    <h3>Coffee Selection</h3>
-                    <p>Freshly brewed hot coffee specialty</p>
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=200&auto=format&fit=crop&q=80" alt="Cappuccino" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Cappuccino</h3>
+                        <p>Espresso with steamed milk foam</p>
+                    </div>
+                    <button class="order-btn" onclick="addCoffee('Cappuccino', 'cap-syrup', 'cap-sugar')">+ Add</button>
                 </div>
-                <button class="order-btn" onclick="addSpirit('Coffee', 'coffee-opt')">+ Add</button>
             </div>
-            <select id="coffee-opt" class="options-select">
-                <option value="Cappuccino">Cappuccino</option>
-                <option value="Latte Macchiato">Latte Macchiato</option>
-                <option value="Café Latte">Café Latte</option>
-                <option value="Flat White">Flat White</option>
-                <option value="Espresso">Espresso</option>
-            </select>
+            <div class="item-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="cap-syrup"> Mit Karamell-Sirup
+                </label>
+                <select id="cap-sugar" class="options-select">
+                    <option value="Kein Zucker">Kein Zucker</option>
+                    <option value="1x Zucker">1x Zucker</option>
+                    <option value="2x Zucker">2x Zucker</option>
+                    <option value="Viel Zucker">Viel Zucker</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Latte Macchiato -->
+        <div class="menu-item">
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=200&auto=format&fit=crop&q=80" alt="Latte Macchiato" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Latte Macchiato</h3>
+                        <p>Layered espresso and hot milk</p>
+                    </div>
+                    <button class="order-btn" onclick="addCoffee('Latte Macchiato', 'latte-syrup', 'latte-sugar')">+ Add</button>
+                </div>
+            </div>
+            <div class="item-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="latte-syrup"> Mit Karamell-Sirup
+                </label>
+                <select id="latte-sugar" class="options-select">
+                    <option value="Kein Zucker">Kein Zucker</option>
+                    <option value="1x Zucker">1x Zucker</option>
+                    <option value="2x Zucker">2x Zucker</option>
+                    <option value="Viel Zucker">Viel Zucker</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Café Latte -->
+        <div class="menu-item">
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=200&auto=format&fit=crop&q=80" alt="Café Latte" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Café Latte</h3>
+                        <p>Smooth espresso with lots of steamed milk</p>
+                    </div>
+                    <button class="order-btn" onclick="addCoffee('Café Latte', 'cafelatte-syrup', 'cafelatte-sugar')">+ Add</button>
+                </div>
+            </div>
+            <div class="item-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="cafelatte-syrup"> Mit Karamell-Sirup
+                </label>
+                <select id="cafelatte-sugar" class="options-select">
+                    <option value="Kein Zucker">Kein Zucker</option>
+                    <option value="1x Zucker">1x Zucker</option>
+                    <option value="2x Zucker">2x Zucker</option>
+                    <option value="Viel Zucker">Viel Zucker</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Flat White -->
+        <div class="menu-item">
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=200&auto=format&fit=crop&q=80" alt="Flat White" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Flat White</h3>
+                        <p>Double shot espresso with microfoam</p>
+                    </div>
+                    <button class="order-btn" onclick="addCoffee('Flat White', 'flat-syrup', 'flat-sugar')">+ Add</button>
+                </div>
+            </div>
+            <div class="item-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="flat-syrup"> Mit Karamell-Sirup
+                </label>
+                <select id="flat-sugar" class="options-select">
+                    <option value="Kein Zucker">Kein Zucker</option>
+                    <option value="1x Zucker">1x Zucker</option>
+                    <option value="2x Zucker">2x Zucker</option>
+                    <option value="Viel Zucker">Viel Zucker</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Espresso -->
+        <div class="menu-item">
+            <div class="item-row">
+                <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200&auto=format&fit=crop&q=80" alt="Espresso" class="item-img">
+                <div class="item-main">
+                    <div class="details">
+                        <h3>Espresso</h3>
+                        <p>Strong, intense single shot</p>
+                    </div>
+                    <button class="order-btn" onclick="addCoffeeEspresso('Espresso', 'esp-sugar')">+ Add</button>
+                </div>
+            </div>
+            <div class="item-options">
+                <select id="esp-sugar" class="options-select">
+                    <option value="Kein Zucker">Kein Zucker</option>
+                    <option value="1x Zucker">1x Zucker</option>
+                    <option value="2x Zucker">2x Zucker</option>
+                    <option value="Viel Zucker">Viel Zucker</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -282,9 +471,27 @@
             updateCartUI();
         }
 
-        function addSpirit(brand, selectId) {
-            let preference = document.getElementById(selectId).value;
-            let fullName = `${brand} (${preference})`;
+        function addCoffee(coffeeName, syrupId, sugarId) {
+            let hasSyrup = document.getElementById(syrupId).checked;
+            let sugarVal = document.getElementById(sugarId).value;
+            
+            let details = [];
+            if (hasSyrup) details.push("mit Karamell-Sirup");
+            if (sugarVal !== "Kein Zucker") details.push(sugarVal);
+            
+            let fullName = coffeeName;
+            if (details.length > 0) {
+                fullName += ` (${details.join(', ')})`;
+            }
+            addToCart(fullName);
+        }
+
+        function addCoffeeEspresso(coffeeName, sugarId) {
+            let sugarVal = document.getElementById(sugarId).value;
+            let fullName = coffeeName;
+            if (sugarVal !== "Kein Zucker") {
+                fullName += ` (${sugarVal})`;
+            }
             addToCart(fullName);
         }
 
