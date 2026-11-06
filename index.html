@@ -792,17 +792,20 @@
                 },
                 body: JSON.stringify(formData)
             })
-            .then(() => {
-                alert("Order placed! The bartender is on it.");
-                cart = {};
-                updateCartUI();
-                closeCartModal();
+            .then(async (response) => {
+                let data = await response.json();
+                if (response.ok && data.success === "true") {
+                    alert("Order placed! The bartender is on it.");
+                    cart = {};
+                    updateCartUI();
+                    closeCartModal();
+                } else {
+                    alert("FormSubmit Notice: " + (data.message || "Failed to submit. Make sure the form is activated via email!"));
+                }
             })
-            .catch(() => {
-                alert("Order placed! (Check your catchall mailbox)");
-                cart = {};
-                updateCartUI();
-                closeCartModal();
+            .catch((error) => {
+                console.error("Network Error:", error);
+                alert("Could not send order due to a network connection issue.");
             });
         }
     </script>
